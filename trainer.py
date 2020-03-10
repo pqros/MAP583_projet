@@ -165,8 +165,12 @@ class Trainer(object):
         sigscores = np.concatenate(sigscores_list)
         labels = np.concatenate(label_list)
 
-        roc_auc = roc_auc_score(labels, sigscores)
-        
+        try:
+            roc_auc = roc_auc_score(labels, sigscores)
+        except ValueError:
+            print('Only one class present in y_true in validation set.')
+            roc_auc = 0.
+
         if val_loss < self.best_val_loss:
             print("New best validation score achieved.")
             self.no_growth = 0
@@ -227,7 +231,12 @@ class Trainer(object):
         # calculate roc
         sigscores = np.concatenate(sigscores_list)
         labels = np.concatenate(label_list)
-        roc_auc = roc_auc_score(labels, sigscores)
+        try:
+            roc_auc = roc_auc_score(labels, sigscores)
+        except ValueError:
+            print('Only one class present in y_true in test set.')
+            roc_auc = 0.
+
         print("\t\tTest-{}  loss:{:.4f} --acc:{:.4f} --rocauc:{:.4f}\n".format(
             self.best_epoch, test_loss, test_acc, roc_auc)
         )
