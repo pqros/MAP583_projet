@@ -69,6 +69,3 @@ To modify network architecture and test dataset, see `config.json`. To adjust hy
 
 ### Run the code
 After configuration, run the command in the root directory: `python main.py`
-
-## Group members
-DONG Tian, GUO Shijia, GUO Yanzhu, NI Runbo
